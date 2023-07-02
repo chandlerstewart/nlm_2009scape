@@ -1,0 +1,57 @@
+\begin{thebibliography}{10}
+
+\bibitem{dong2019neural}
+Honghua Dong, Jiayuan Mao, Tian Lin, Chong Wang, Lihong Li, and Denny Zhou.
+\newblock Neural logic machines, 2019.
+
+\bibitem{dzeroski2001relational}
+Sa{\v{s}}o D{\v{z}}eroski, Luc De~Raedt, and Kurt Driessens.
+\newblock Relational reinforcement learning.
+\newblock {\em Machine learning}, 43:7--52, 2001.
+
+\bibitem{garcez2019neural}
+Artur~DS Garcez, Marco Gori, Luis~C Lamb, and Luciano Serafini.
+\newblock Neural-symbolic learning: An introduction.
+\newblock In {\em International Conference on Neural Information Processing},
+  pages 3--15. Springer, 2019.
+
+\bibitem{hu2017learning}
+Ronghang Hu, Jacob Andreas, Marcus Rohrbach, Trevor Darrell, and Kate Saenko.
+\newblock Learning to reason: End-to-end module networks for visual question
+  answering, 2017.
+
+\bibitem{puterman2014markov}
+Martin~L Puterman.
+\newblock {\em Markov decision processes: discrete stochastic dynamic
+  programming}.
+\newblock John Wiley \& Sons, 2014.
+
+\bibitem{sen2021neurosymbolic}
+Prithviraj Sen, Breno W. S.~R. de~Carvalho, Ryan Riegel, and Alexander Gray.
+\newblock Neuro-symbolic inductive logic programming with logical neural
+  networks, 2021.
+
+\bibitem{serafini2016logic}
+Luciano Serafini and Artur~d'Avila Garcez.
+\newblock Logic tensor networks: Deep learning and logical reasoning from data
+  and knowledge.
+\newblock {\em arXiv preprint arXiv:1606.04422}, 2016.
+
+\bibitem{sutton2018reinforcement}
+Richard~S Sutton and Andrew~G Barto.
+\newblock {\em Reinforcement learning: An introduction}.
+\newblock MIT press, 2018.
+
+\bibitem{sutton1999policy}
+Richard~S Sutton, David McAllester, Satinder Singh, and Yishay Mansour.
+\newblock Policy gradient methods for reinforcement learning with function
+  approximation.
+\newblock {\em Advances in neural information processing systems}, 12, 1999.
+
+\bibitem{williams1992simple}
+Ronald~J Williams.
+\newblock Simple statistical gradient-following algorithms for connectionist
+  reinforcement learning.
+\newblock {\em Machine learning}, 8:229--256, 1992.
+
+\end{thebibliography}

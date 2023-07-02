@@ -1,0 +1,45 @@
+{
+  "projectName": "neuro-symbolic-sudoku-solver",
+  "projectOwner": "ashutosh1919",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "commitConvention": "gitmoji",
+  "contributors": [
+    {
+      "login": "ashutosh1919",
+      "name": "Ashutosh Hathidara",
+      "avatar_url": "https://avatars.githubusercontent.com/u/20843596?v=4",
+      "profile": "https://github.com/ashutosh1919",
+      "contributions": [
+        "code",
+        "ideas",
+        "maintenance",
+        "design",
+        "doc",
+        "question",
+        "research"
+      ]
+    },
+    {
+      "login": "L-Pandey",
+      "name": "Lalit Pandey",
+      "avatar_url": "https://avatars.githubusercontent.com/u/90662028?v=4",
+      "profile": "https://github.com/L-Pandey",
+      "contributions": [
+        "code",
+        "doc",
+        "ideas",
+        "maintenance",
+        "design",
+        "question",
+        "research"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7
+}
