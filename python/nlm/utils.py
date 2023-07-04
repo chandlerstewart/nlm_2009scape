@@ -228,13 +228,16 @@ class Bot:
     def nearby_nodes_to_state(self):
         nodes = []
         for node in self.info["nearbyNodes"]:
-            if node in ["", "Daisies"]:
-                nodes.append(0)
-            else:
-                nodes.append(1)
+            nodes.append(node)
+            #if node in ["", "Daisies"]:
+            #    nodes.append(0)
+            #else:
+            #    nodes.append(1)
 
         ret = torch.tensor(nodes).reshape(
             (int(math.sqrt(constants.STATE_SIZE)),-1))
+
+        
         
         return ret
     

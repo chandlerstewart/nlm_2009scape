@@ -30,27 +30,29 @@ class RunescapeEnv(SimpleRLEnvBase):
     state_length = constants.GRID_SIDE_LENGTH
     self.add_state_relations()
 
-    if (goalx < 0 
-        or goaly < 0 
-        or goalx >= state_length 
-        or goaly >= state_length):
-      return
-
-
-    self._current_state[goalx, goaly] = 2
 
   def _restart(self):
     def random_goal_tile():
       print("RESTARTING")
-      size = int(math.sqrt(constants.STATE_SIZE))
-      (x,y) = constants.SPAWN_LOCATION
 
+      prob = random.uniform()
+      (x,y) = constants.SPAWN_LOCATION
+      size = constants.NODES_RANGE*2
+
+      if prob > 0.9:
+        size *= 5
+      elif prob > 0.8:
+        size *= 4
+      elif prob > 0.5:
+        size *= 3
       
+
+
       if constants.GOAL_LOC is not None:
         self.goal = constants.GOAL_LOC
       else:
-        self.goal = (random.randint(x-(size*2), x+(size*2)),
-                    random.randint(y-(size*2), y+(size*2)))
+        self.goal = (random.randint(x-(size), x+(size)),
+                    random.randint(y-(size), y+(size)))
       
       self.episode_steps = 0
 
@@ -60,7 +62,7 @@ class RunescapeEnv(SimpleRLEnvBase):
     self._steps = 0
 
   def is_blocked(self, x, y):
-    return self._current_state[x,y,0] == 1
+    return self._current_state[x,y,0] != True #True is not blocked, False is blocked
   
 
   def add_state_relations(self):

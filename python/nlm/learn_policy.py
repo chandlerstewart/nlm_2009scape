@@ -57,7 +57,7 @@ LogicMachine.make_nlm_parser(
 nlm_group.add_argument(
     '--nlm-attributes',
     type=int,
-    default=8,
+    default=16,
     metavar='N',
     help='number of output attributes in each group of each layer of the LogicMachine'
 )
@@ -65,9 +65,6 @@ nlm_group.add_argument(
 # MemNN parameters, works when model is 'memnet'.
 memnet_group = parser.add_argument_group('Memory Networks')
 MemoryNet.make_memnet_parser(memnet_group, {}, prefix='memnet')
-
-parser.add_argument(
-    '--task', default="sudoku",required=False, choices=['sudoku'], help='tasks choices')
 
 data_gen_group = parser.add_argument_group('Data Generation')
 data_gen_group.add_argument(
@@ -395,7 +392,7 @@ class MyTrainer(MiningTrainerBase):
     pass
 
   def _get_player(self, number, mode):
-    player = make_env(args.task, nr_empty=number)
+    player = make_env(None, nr_empty=number)
     player.restart()
     return player
 

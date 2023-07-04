@@ -326,12 +326,17 @@ public class AIPlayer extends Player {
 
         for (int x = startX; x <= endX; x++) {
             for (int y = startY; y <= endY; y++) {
-                Node node = RegionManager.getObject(0, x, y);
-                if (node != null)
-                    nodes.add(node.getName());
-                else {
-                    nodes.add("");
-                }
+                int flag = RegionManager.getClippingFlag(0, x, y);
+                //System.out.println(flag);
+                nodes.add(flag == 0);
+
+
+                //Node node = RegionManager.getObject(0, x, y);
+                //if (node != null)
+                //    nodes.add(node.getName() + " " + flag);
+                //else {
+                //    nodes.add("" + flag);
+                //}
             }
         }
         return nodes;
