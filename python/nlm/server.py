@@ -16,33 +16,32 @@ import utils
 
 class Server:
 
-    def __init__(self):
-        self.MESSAGE_IN_UPDATED = False
-        self.MESSAGE_IN = Message("temp")
-        self.MESSAGE_OUT = Message("waiting_for_connection")
-        self.MESSAGE_IN_UPDATED = False
-        self.SOCKET_OPEN = True
-        self.STATE = State.WAIT_FOR_CONNECTION
+    MESSAGE_IN_UPDATED = False
+    MESSAGE_IN = Message("temp")
+    MESSAGE_OUT = Message("waiting_for_connection")
+    MESSAGE_IN_UPDATED = False
+    SOCKET_OPEN = True
+    STATE = State.WAIT_FOR_CONNECTION
 
 
-    def start(self):
+    def start():
 
         def server_handler(signum, frame):
-            self.SOCKET_OPEN = False
+            Server.SOCKET_OPEN = False
             exit(1)
 
         signal.signal(signal.SIGINT, server_handler)
-        server_thread = threading.Thread(target = self._start)
+        server_thread = threading.Thread(target = Server._start)
         server_thread.start()
 
 
-    def _start(self):
+    def _start():
         server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         server_socket.bind((constants.HOST, constants.PORT))
         server_socket.listen()
 
 
-        while self.SOCKET_OPEN:
+        while Server.SOCKET_OPEN:
             client_socket, addr = server_socket.accept()
             length_bytes = client_socket.recv(2)
 
@@ -62,57 +61,57 @@ class Server:
                 print("FIX THIS!")
 
 
-            self.MESSAGE_IN = Message(**json.loads(data.decode('utf-8')))
-            self.MESSAGE_IN_UPDATED = True
-            self.manage_state(self.MESSAGE_IN)
+            Server.MESSAGE_IN = Message(**json.loads(data.decode('utf-8')))
+            Server.MESSAGE_IN_UPDATED = True
+            Server.manage_state(Server.MESSAGE_IN)
 
-            #print(self.MESSAGE_OUT.command)
-            #print(self.MESSAGE_OUT.info)
-            response = self.MESSAGE_OUT.to_json_out()
+            #print(Server.MESSAGE_OUT.command)
+            #print(Server.MESSAGE_OUT.info)
+            response = Server.MESSAGE_OUT.to_json_out()
             
             
             client_socket.send(response)
             client_socket.close()
 
 
-    def manage_state(self,message):
-        self.last_response = message
-        if self.STATE == State.RESET_EPISDOE:
+    def manage_state(message):
+        last_response = message
+        if Server.STATE == State.RESET_EPISDOE:
             return
         elif message.command == "Connected":
-            self.STATE = State.SPAWN_BOTS
+            Server.STATE = State.SPAWN_BOTS
             print("State: Spawn Bots")
         elif message.command in ["Wait", "Success: spawn_bots"]:
-            self.STATE = State.WAIT_FOR_DATA
+            Server.STATE = State.WAIT_FOR_DATA
             print("State: Waiting for DATA")
         elif message.command == "json":
-            self.last_response = json.loads(message.info)
-            self.STATE = State.SEND_ACTION
+            Server.last_response = json.loads(message.info)
+            Server.STATE = State.SEND_ACTION
 
-    def step(self,data):
-        self.MESSAGE_OUT = Message("json", data)
+    def step(data):
+        Server.MESSAGE_OUT = Message("json", data)
         
     
-    def close(self):
-        self.SOCKET_OPEN = False
+    def close():
+        Server.SOCKET_OPEN = False
 
         
 
 
 
-    def update_message(self):
-        if self.STATE == State.WAIT_FOR_CONNECTION:
-            self.MESSAGE_OUT = Message("waiting_for_connection")
-        if self.STATE == State.WAIT_FOR_DATA:
-            self.MESSAGE_OUT = Message("server_waiting")
-        if self.STATE in [State.SPAWN_BOTS, State.RESET_EPISDOE]:
-            self.STATE = State.SPAWN_BOTS
+    def update_message():
+        if Server.STATE == State.WAIT_FOR_CONNECTION:
+            Server.MESSAGE_OUT = Message("waiting_for_connection")
+        if Server.STATE == State.WAIT_FOR_DATA:
+            Server.MESSAGE_OUT = Message("server_waiting")
+        if Server.STATE in [State.SPAWN_BOTS, State.RESET_EPISDOE]:
+            Server.STATE = State.SPAWN_BOTS
             botinfo = Bot({"task":"woodcutting", "nodesRange": constants.NODES_RANGE})
             botinfo = json.dumps([botinfo.info])
-            self.MESSAGE_OUT = Message(f"spawn_bots {constants.SPAWN_LOCATION[0]} {constants.SPAWN_LOCATION[1]} {constants.NUM_BOTS}", botinfo )
+            Server.MESSAGE_OUT = Message(f"spawn_bots {constants.SPAWN_LOCATION[0]} {constants.SPAWN_LOCATION[1]} {constants.NUM_BOTS}", botinfo )
 
 
-        self.MESSAGE_IN_UPDATED = False
+        Server.MESSAGE_IN_UPDATED = False
 
 
 

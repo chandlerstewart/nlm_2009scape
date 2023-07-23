@@ -31,15 +31,16 @@ public class PyCommands {
                 int numOfBots = Integer.valueOf(split[3]);
                 botInfoList = message.getInfo();
                 GenerateBot(new Location(x, y), numOfBots, botInfoList);
-                String jsonBotStatus = PyBotManager.getJSONBotStatus(null);
+                String jsonBotStatus = PyBotManager.getJSONBotStatus();
 
                 return new Message("Success: spawn_bots", String.valueOf(jsonBotStatus.length()*2));
             case "server_waiting":
-                return new Message("json", PyBotManager.getJSONBotStatus(null));
+                return new Message("json", PyBotManager.getJSONBotStatus());
             case "json":
                 botInfoList = message.getInfo();
-                ArrayList <Integer> rewards = PyBotManager.takeActions(botInfoList);
-                return new Message("json", PyBotManager.getJSONBotStatus(rewards));
+                PyBotManager.process(botInfoList);
+                PyBotManager.takeActions(botInfoList);
+                return new Message("json", PyBotManager.getJSONBotStatus());
 
             default:
                 System.out.println("DEFAULT");

@@ -40,11 +40,11 @@ class RunescapeEnv(SimpleRLEnvBase):
       size = constants.NODES_RANGE*2
 
       if prob > 0.9:
-        size *= 5
+        size *= 5*2
       elif prob > 0.8:
-        size *= 4
+        size *= 4*2
       elif prob > 0.5:
-        size *= 3
+        size *= 3*2
       
 
 

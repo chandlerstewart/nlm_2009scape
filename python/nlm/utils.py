@@ -173,6 +173,9 @@ def plot_logs_collected(logs, show_result=False):
     
 
 def json_to_bot(json_data):
+    if isinstance(json_data, Message):
+        return
+    
     bots = []
 
     for val in json_data:
@@ -183,6 +186,7 @@ def json_to_bot(json_data):
 
 def bot_to_json(bots):
     return json.dumps([b.info for b in bots])
+
 
 
 class Bot:
@@ -209,10 +213,6 @@ class Bot:
         
         return state
     
-    def get_relative_state(self):
-        state = [self.get_relative_x(),self.get_relative_y()]
-        #state += self.get_state_bools()
-        return state
     
     def unnormalize_xy(xy):
         x = xy[0] * constants.X_SIZE + constants.BOUNDSX[0]
@@ -243,20 +243,9 @@ class Bot:
     
     def take_action(self, action):
         (newx, newy) = action
-        self.info["interact"] = "none"
+        self.info["action"] = "move"
         self.info["xLoc"] = int(newx)
         self.info["yLoc"] = int(newy)
-
-    def get_state_bools(self):
-        bools = [
-                 self.info["canMoveNorth"],self.info["canMoveSouth"], self.info["canMoveEast"], self.info["canMoveWest"],
-                 self.info["northNode"], self.info["southNode"], self.info["eastNode"], self.info["westNode"]
-                 ]
-        
-
-        bools = np.asarray(bools).astype(int)
-
-        return bools.tolist()
 
 
     def random_move(self):
@@ -270,10 +259,4 @@ class Bot:
             self.move_east()
         if choice == 3:
             self.move_west()
-
-    def get_relative_x(self):
-        return self.info["xLoc"] - constants.BOUNDSX[0]
-    
-    def get_relative_y(self):
-        return self.info["yLoc"] - constants.BOUNDSY[0]
 
