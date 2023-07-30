@@ -87,10 +87,8 @@ data_gen_group.add_argument(
 
 MiningTrainerBase.make_trainer_parser(
     parser, {
-        #'epochs': 400,
-        'epochs': 1,
-        'epoch_size': 10,
-        #'epoch_size': 100,
+        'epochs': 100,
+        'epoch_size': 100,
         #'test_epoch_size': 1000,
         'test_epoch_size': 1,
         'test_number_begin': 10,
@@ -219,3 +217,4 @@ args = parser.parse_args()
 args.test_not_graduated = True
 args.use_gpu = args.use_gpu and torch.cuda.is_available()
 args.dump_play = args.dump_play and (args.dump_dir is not None)
+args.goal_loc_multi = 2

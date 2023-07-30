@@ -38,6 +38,8 @@ from server import Server
 
 
 class MyTrainer(MiningTrainerBase):
+  rewards_lst = []
+  succ_lst = []
   def save_checkpoint(self, name):
     if args.checkpoints_dir is not None:
       checkpoint_file = os.path.join(args.checkpoints_dir,
@@ -64,6 +66,8 @@ class MyTrainer(MiningTrainerBase):
   def _get_result_given_player(self, index, meters, number, player, mode):
     assert mode in ['train', 'test', 'mining', 'inherit']
     params = dict(
+        eval_only=True,
+        number=number,
         play_name='{}_epoch{}_episode{}'.format(mode, self.current_epoch,
                                                 index))
     backup = None
@@ -78,10 +82,10 @@ class MyTrainer(MiningTrainerBase):
       backup = copy.deepcopy(player)
       params['use_argmax'] = self.is_candidate
     succ, score, traj, length, optimal = \
-        run_episode(player, self.model, **params)
+        run_episode(player, **params, model=self.model)
     meters.update(
-        succ=succ, score=score, length=length, optimal=optimal)
-
+        number=number, succ=succ, score=score, length=length, optimal=optimal)
+    
     if mode == 'train':
       feed_dict = make_data(traj, args.gamma)
       feed_dict['entropy_beta'] = as_tensor(self.entropy_beta).float()
@@ -138,7 +142,7 @@ score={score:.4f}, length={length}, optimal={optimal}'.format(
 
 
 def run_episode(env,
-                
+                number,
                 model,
                 play_name='',
                 dump=False,
@@ -218,6 +222,8 @@ def run_episode(env,
 
   length = len(traj['rewards'])
   Server.STATE = State.RESET_EPISDOE
+  MyTrainer.succ_lst.append(succ)
+  MyTrainer.rewards_lst.append(score)
   return succ, score, traj, length, optimal
 
 

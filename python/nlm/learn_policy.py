@@ -151,4 +151,5 @@ if __name__ == '__main__':
               meters.avg['number'], meters.avg['grad_test_succ']))
           
   Server.close()
-  #utils.plot_rewards(traj['rewards'], False)
+  utils.plot(MyTrainer.succ_lst, "success_rate", "episode", "success", f"success_rate_{args.goal_loc_multi}.png")
+  utils.plot(MyTrainer.rewards_lst, "rewards", "episode", "reward", f"rewards_{args.goal_loc_multi}.png")

@@ -115,6 +115,16 @@ def encode_state(state):
     ret = [state[0], state[1]]
     return ret
 
+
+def plot(lst, title, xlabel, ylabel, filename):
+    plt.figure()
+    plt.plot(lst)
+    plt.title(title)
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
+    plt.savefig(f"./plots/{filename}")
+
+
 def plot_rewards(rewards, show_result=False):
     
     plt.figure(1)

@@ -8,6 +8,7 @@ from jacinle.utils.meta import notnone_property
 from jaclearn.rl.env import SimpleRLEnvBase
 import constants
 import math
+from args import args
 
 __all__ = ['RunescapeEnv']
 
@@ -38,13 +39,16 @@ class RunescapeEnv(SimpleRLEnvBase):
       prob = random.uniform()
       (x,y) = constants.SPAWN_LOCATION
       size = constants.NODES_RANGE*2
+      
 
-      if prob > 0.9:
-        size *= 5*2
-      elif prob > 0.8:
-        size *= 4*2
-      elif prob > 0.5:
-        size *= 3*2
+      #if prob > 0.9:
+      #  size *= 5*2
+      #elif prob > 0.8:
+      #  size *= 4*2
+      #elif prob > 0.5:
+      #  size *= 3*2
+
+      size *= args.goal_loc_multi
       
 
 
